@@ -3,29 +3,30 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 
-
 # Generate data for the line graph
-date_range = pd.date_range(start="2024-11-12", end=pd.to_datetime("now"), freq='H')  # Hourly data from 01.01.2024 to now
+date_range = pd.date_range(start="2024-11-12", end=pd.to_datetime("now"), freq='H')  # Hourly data
 
-
-kuch_values = np.random.randint(0, 81, len(date_range))  # Random voltage values between 0 and 80
-tok_values = np.random.randint(0, 16, len(date_range))  # Random voltage values between 0 and 15
+# Sample data generation
+kuch_values = np.random.randint(0, 81, len(date_range))
+tok_values = np.random.randint(0, 16, len(date_range))
 radiatsiya = np.random.randint(0, 151, len(date_range))
 harorat = np.random.randint(25, 27, len(date_range))
-# Create DataFrame
-data = pd.DataFrame({"Vaqt": date_range, "Kuchlanish": kuch_values, "Tok kuchi": tok_values, "Radiatsiya":radiatsiya, "Harorat": harorat})
 
-fig_solar_kuch = px.line(data, x="Vaqt", y="Kuchlanish", title="Kuchlanishning qiymatlari o'zgarishi", labels={"Vaqt": "Vaqt (soat)", "Kuchlanish": "Kuchlanish (V)"})
-fig_solar_kuch.update_xaxes(rangeslider_visible=True)  # Adds a range slider for zooming in/out on the x-axis
+data = pd.DataFrame({
+    "Vaqt": date_range,
+    "Kuchlanish": kuch_values,
+    "Tok kuchi": tok_values,
+    "Radiatsiya": radiatsiya,
+    "Harorat": harorat
+})
 
-fig_solar_tok = px.line(data, x="Vaqt", y="Tok kuchi", title="Vaqt birligida tok kuchining o'zgarishi", labels={"Vaqt": "Vaqt (soat)", "Tok kuchi": "Tok kuchi (A)"})
-fig_solar_tok.update_xaxes(rangeslider_visible=True)  # Adds a range slider for zooming in/out on the x-axis
+# Line plots for solar data
+fig_solar_kuch = px.line(data, x="Vaqt", y="Kuchlanish", title="Kuchlanishning qiymatlari o'zgarishi")
+fig_solar_tok = px.line(data, x="Vaqt", y="Tok kuchi", title="Vaqt birligida tok kuchining o'zgarishi")
+fig_solar_rad = px.line(data, x="Vaqt", y="Radiatsiya", title="Vaqt birligida radiatsiyaning o'zgarishi")
+fig_solar_har = px.line(data, x="Vaqt", y="Harorat", title="Vaqt birligida haroratning o'zgarishi")
 
-fig_solar_rad = px.line(data, x="Vaqt", y="Radiatsiya", title="Vaqt birligida radiatsiyaning o'zgarishi", labels={"Vaqt": "Vaqt (soat)", "Radiatsiya": "Radiatsiya (W/m.kv)"})
-fig_solar_rad.update_xaxes(rangeslider_visible=True)
-
-fig_solar_har = px.line(data, x="Vaqt", y="Harorat", title="Vaqt birligida haroratning o'zgarishi", labels={"Vaqt": "Vaqt (soat)", "Harorat": "Harorat (C)"})
-fig_solar_har.update_xaxes(rangeslider_visible=True)
+### Qoshilgan
 
 kuch_shamol = np.random.randint(0, 61, len(date_range))
 tok_shamol= np.random.randint(0, 11, len(date_range))
@@ -64,8 +65,6 @@ fig_dg_tok.update_xaxes(rangeslider_visible=True)
 
 kuch_ab = np.random.randint(10, 15, len(date_range))
 tok_ab= np.random.randint(0, 21, len(date_range))
-# k = date_range
-# zaryad_ab = sorted(np.random.randint(0, 101, k), reverse=True)
 zaryad_ab= sorted(np.random.randint(0, 101, len(date_range)), reverse=True)
 data_ab = pd.DataFrame({"Vaqt": date_range, "Kuchlanish": kuch_ab, "Tok kuchi": tok_ab, "Zaryad miqdori": zaryad_ab})
 
@@ -93,37 +92,47 @@ fig_c_kuch.update_xaxes(rangeslider_visible=True)
 fig_c_tok = px.line(data_c, x="Vaqt", y="Tok kuchi", title="Vaqt birligida tok kuchining o'zgarishi", labels={"Vaqt": "Vaqt (soat)", "Tok kuchi": "Tok kuchi (A)"})
 fig_c_tok.update_xaxes(rangeslider_visible=True)
 
-# Sidebar navigation
-st.sidebar.title("Dashboard")
-page = st.sidebar.selectbox("Viloyatni tanlang", ["Bosh sahifa", "1. Andijon", "2. Buxoro", "3. Farg'ona", 
-                            "4. Jizzax", "5. Xorazm", "6. Namangan", "7. Navoiy", "8. Qashqadaryo", "9. Qoraqalpog'iston Respublikasi",
-                            "10. Samarqand", "11. Sirdaryo", "12. Surxondaryo", "13. Toshkent viloyati", "14. Toshkent shahri"])
 
-# Bosh sahifa
+# Add range slider
+for fig in [fig_solar_kuch, fig_solar_tok, fig_solar_rad, fig_solar_har]:
+    fig.update_xaxes(rangeslider_visible=True)
+
+# Sidebar navigation with nested selectboxes
+st.sidebar.title("Dashboard")
+page = st.sidebar.selectbox(
+    "Viloyatni tanlang", [
+        "Bosh sahifa", "1. Andijon", "2. Buxoro", "3. Farg'ona", 
+                            "4. Jizzax", "5. Xorazm", "6. Namangan", "7. Navoiy", "8. Qashqadaryo", "9. Qoraqalpog'iston Respublikasi",
+                            "10. Samarqand", "11. Sirdaryo", "12. Surxondaryo", "13. Toshkent viloyati", "14. Toshkent shahri"
+        # Add other provinces here
+    ]
+)
+
 if page == "Bosh sahifa":
     st.title("Bosh sahifa")
     st.write("Viloyatni tanlash uchun yuqoridagi menyudan foydalaning.")
 
-# Andijon Page
 elif page == "1. Andijon":
-    st.title("Andijon viloyati tumanlari")
-    main_category = st.selectbox("Tumanni tanlang", ["Tumanni kiriting", "1. Andijon tumani", "2. Asaka", "3. Baliqchi",
+    main_category = st.sidebar.selectbox("Andijon Tumanni tanlang", [
+        "Tumanni kiriting", "1. Andijon tumani", "2. Asaka", "3. Baliqchi",
                                 "4. Bo'ston", "5. Buloqboshi", "6. Izboskan", "7. Jalaquduq", "8. Marhamat",
-                                "9. Oltinko'l", "10. Paxtaobod", "11. Qo'rg'ontepa", "12. Shahrixon", "13. Ulug'nor", "14. Xo'jaobod"])
+                                "9. Oltinko'l", "10. Paxtaobod", "11. Qo'rg'ontepa", "12. Shahrixon", "13. Ulug'nor", "14. Xo'jaobod"
+        # Add other districts here
+    ])
     
     if main_category == "1. Andijon tumani":
-        st.title("Andijon tumani")
-        page = st.selectbox("Obektni tanlang", ["Obektni kiriting", "Obekt 1", "Obekt 2", "Obekt 3"])
-        if page == "Obekt 1":
-            st.header("Obekt 1")
+        sub_category = st.sidebar.selectbox("Obektni tanlang", ["Obektni kiriting", "Obekt 1", "Obekt 2", "Obekt 3"])
+        
+        if sub_category == "Obekt 1":
+            st.title("Andijon tumani - Obekt 1")
             d1 = st.selectbox("Quyosh (solar)", ["Tanlang", "Tok kuchi", "Kuchlanish", "Radiatsiya", "Harorat"])
             if d1 == "Tok kuchi":
                 st.plotly_chart(fig_solar_tok)
-            if d1 == "Kuchlanish":
+            elif d1 == "Kuchlanish":
                 st.plotly_chart(fig_solar_kuch)
-            if d1 == "Radiatsiya":
+            elif d1 == "Radiatsiya":
                 st.plotly_chart(fig_solar_rad)
-            if d1 == "Harorat":
+            elif d1 == "Harorat":
                 st.plotly_chart(fig_solar_har)
             d2 = st.selectbox("Shamol", ["Tanlang", "Tok kuchi", "Kuchlanish", "Shamol tezligi"])
             if d2 == "Tok kuchi":
@@ -151,20 +160,14 @@ elif page == "1. Andijon":
                 st.plotly_chart(fig_c_tok)
             if d5 == "Kuchlanish":
                 st.plotly_chart(fig_c_kuch)
-    elif main_category == "Asaka":
-        st.header("Asaka")
-        st.write("Asaka tumaniga xush kelibsiz!")
 
-# Buxoro Page
 elif page == "2. Buxoro":
     st.title("Buxoro Viloyati")
     st.write("Buxoro viloyati sahifasiga xush kelibsiz.")
 
-# Farg'ona Page
 elif page == "3. Farg'ona":
     st.title("Farg'ona Viloyati")
     st.write("Farg'ona viloyati sahifasiga xush kelibsiz.")
-
 
 
 
