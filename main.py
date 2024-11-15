@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 
 # Generate data for the line graph
-date_range = pd.date_range(start="2024-11-12", end=pd.to_datetime("now"), freq='H')  # Hourly data
+date_range = pd.date_range(start="2024-11-13", end=pd.to_datetime("now"), freq='H')  # Hourly data
 
 # Sample data generation
 kuch_values = np.random.randint(0, 81, len(date_range))
