@@ -125,41 +125,68 @@ elif page == "1. Andijon":
         
         if sub_category == "Obekt 1":
             st.title("Andijon tumani - Obekt 1")
-            d1 = st.selectbox("Quyosh (solar)", ["Tanlang", "Tok kuchi", "Kuchlanish", "Radiatsiya", "Harorat"])
-            if d1 == "Tok kuchi":
+            category = st.radio("Tanlang", ["Quyosh energiya ta'minoti manbasi", "Shamol energiya ta'minoti manbasi", "Dizel generatori", "Akkumulyatorlar batareyasi", "Markazlashtirilgan energiya ta'minoti manbasi"])
+            if category == "Quyosh energiya ta'minoti manbasi":
                 st.plotly_chart(fig_solar_tok)
-            elif d1 == "Kuchlanish":
                 st.plotly_chart(fig_solar_kuch)
-            elif d1 == "Radiatsiya":
                 st.plotly_chart(fig_solar_rad)
-            elif d1 == "Harorat":
                 st.plotly_chart(fig_solar_har)
-            d2 = st.selectbox("Shamol", ["Tanlang", "Tok kuchi", "Kuchlanish", "Shamol tezligi"])
-            if d2 == "Tok kuchi":
+
+            elif category == "Shamol energiya ta'minoti manbasi":
                 st.plotly_chart(fig_shamol_tok)
-            if d2 == "Kuchlanish":
                 st.plotly_chart(fig_shamol_kuch)
-            if d2 == "Shamol tezligi":
                 st.plotly_chart(fig_shamol_tez)
-            d3 = st.selectbox("Dizel generatori", ["Tanlang", "Tok kuchi", "Kuchlanish", "Yoqilg'i"])
-            if d3 == "Tok kuchi":
+
+            elif category == "Dizel generatori":
                 st.plotly_chart(fig_dg_tok)
-            if d3 == "Kuchlanish":
                 st.plotly_chart(fig_dg_kuch)
-            if d3 == "Yoqilg'i":
                 st.plotly_chart(fig_dg_yoq)
-            d4 = st.selectbox("Akkumlyator batarekasi", ["Tanlang", "Tok kuchi", "Kuchlanish", "Zaryad miqdori"])
-            if d4 == "Tok kuchi":
+
+            elif category == "Akkumulyatorlar batareyasi":
                 st.plotly_chart(fig_ab_tok)
-            if d4 == "Kuchlanish":
                 st.plotly_chart(fig_ab_kuch)
-            if d4 == "Zaryad miqdori":
                 st.plotly_chart(fig_ab_zar)
-            d5 = st.selectbox("Markazlashgan energiya ta'minoti", ["Tanlang", "Tok kuchi", "Kuchlanish"])
-            if d5 == "Tok kuchi":
+
+            elif category == "Markazlashtirilgan energiya ta'minoti manbasi":
                 st.plotly_chart(fig_c_tok)
-            if d5 == "Kuchlanish":
                 st.plotly_chart(fig_c_kuch)
+
+
+            # d1 = st.selectbox("Quyosh (solar)", ["Tanlang", "Tok kuchi", "Kuchlanish", "Radiatsiya", "Harorat"])
+            # if d1 == "Tok kuchi":
+            #     st.plotly_chart(fig_solar_tok)
+            # elif d1 == "Kuchlanish":
+            #     st.plotly_chart(fig_solar_kuch)
+            # elif d1 == "Radiatsiya":
+            #     st.plotly_chart(fig_solar_rad)
+            # elif d1 == "Harorat":
+            #     st.plotly_chart(fig_solar_har)
+            # d2 = st.selectbox("Shamol", ["Tanlang", "Tok kuchi", "Kuchlanish", "Shamol tezligi"])
+            # if d2 == "Tok kuchi":
+            #     st.plotly_chart(fig_shamol_tok)
+            # if d2 == "Kuchlanish":
+            #     st.plotly_chart(fig_shamol_kuch)
+            # if d2 == "Shamol tezligi":
+            #     st.plotly_chart(fig_shamol_tez)
+            # d3 = st.selectbox("Dizel generatori", ["Tanlang", "Tok kuchi", "Kuchlanish", "Yoqilg'i"])
+            # if d3 == "Tok kuchi":
+            #     st.plotly_chart(fig_dg_tok)
+            # if d3 == "Kuchlanish":
+            #     st.plotly_chart(fig_dg_kuch)
+            # if d3 == "Yoqilg'i":
+            #     st.plotly_chart(fig_dg_yoq)
+            # d4 = st.selectbox("Akkumlyator batarekasi", ["Tanlang", "Tok kuchi", "Kuchlanish", "Zaryad miqdori"])
+            # if d4 == "Tok kuchi":
+            #     st.plotly_chart(fig_ab_tok)
+            # if d4 == "Kuchlanish":
+            #     st.plotly_chart(fig_ab_kuch)
+            # if d4 == "Zaryad miqdori":
+            #     st.plotly_chart(fig_ab_zar)
+            # d5 = st.selectbox("Markazlashgan energiya ta'minoti", ["Tanlang", "Tok kuchi", "Kuchlanish"])
+            # if d5 == "Tok kuchi":
+            #     st.plotly_chart(fig_c_tok)
+            # if d5 == "Kuchlanish":
+            #     st.plotly_chart(fig_c_kuch)
 
 elif page == "2. Buxoro":
     st.title("Buxoro Viloyati")
